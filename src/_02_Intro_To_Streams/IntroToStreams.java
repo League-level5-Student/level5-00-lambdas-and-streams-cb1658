@@ -66,6 +66,7 @@ public class IntroToStreams {
             }
         }
         
+        
         /*
          * How to create streams from different Collections
          */
