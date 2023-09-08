@@ -15,6 +15,7 @@ import java.util.stream.Stream;
  * 
  * Using Stream methods allows Java to potentially be more efficient with how
  * the operation is done. Here is an example:
+ * 
  *   String[] words = {"These", "are", "some", "words!!!"};
  * 
  *   // 1. Using a for loop for iteration
@@ -40,6 +41,7 @@ import java.util.stream.Stream;
  *                          .map((word) -> word.length())           // 3.
  *                          .reduce(0, (acc, next) -> acc + next);  // 4.
  *   1. Create stream from string array
+ *   
  *   2. Only keep words with more than 4 characters in the stream
  *   3. Create a stream of ints from a stream of strings
  *   4. Return the sum of all the ints in the stream
@@ -92,7 +94,7 @@ public class IntroToStreams {
          * forEach() - Apply operation to all elements
          */
         System.out.print("Array stream forEach(): ");
-        Arrays.stream(strArr).forEach( (word) -> System.out.print(word + " ") );
+        Arrays.stream(strArr).forEach( (word) -> System.out.println(word + "___") );
         
         System.out.print("\nList stream forEach(): ");
         intList.stream().forEach( (i) -> System.out.print(i + " ") );
@@ -102,7 +104,7 @@ public class IntroToStreams {
          */
         System.out.println();
         System.out.print("\nArray stream sorted(): ");
-        Arrays.stream(strArr).sorted().forEach((word) -> System.out.print(word + " "));
+        Arrays.stream(strArr).sorted().forEach((word) -> System.out.print(word + " ")); // THIS ONE
         
         System.out.print("\nList stream sorted(): ");
         intList.stream().sorted().forEach((i) -> System.out.print(i + " " ));
@@ -164,7 +166,7 @@ public class IntroToStreams {
         
         /*
          * Scale or convert a stream of elements to another
-         * map((e) -> a new element)
+         * map(ent)(e) -> a new element
          */
         List<String> models = carList.stream()
                                       .map((car) -> car.make)
@@ -192,15 +194,18 @@ public class IntroToStreams {
                                 .sorted()
                                 .toArray();
                                 
+        double[] filtered_not_sorted = Arrays.stream(data).distinct().toArray();
+        
         System.out.println("\nSort array and remove duplicates:");
         System.out.println(Arrays.toString(data));
         System.out.println(Arrays.toString(sorted));
+        System.out.println(Arrays.toString(filtered_not_sorted));
         
-        System.out.println();
-        System.out.println("Min val: " + Arrays.stream(sorted).min().getAsDouble());
-        System.out.println("Max val: " + Arrays.stream(sorted).max().getAsDouble());
-        System.out.println("Sum ...: " + Arrays.stream(sorted).sum());
-        System.out.println("Average: " + Arrays.stream(sorted).average().getAsDouble());
-        System.out.println("Summary: " + Arrays.stream(sorted).summaryStatistics());
+//        System.out.println();
+//        System.out.println("Min val: " + Arrays.stream(sorted).min().getAsDouble());
+//        System.out.println("Max val: " + Arrays.stream(sorted).max().getAsDouble());
+//        System.out.println("Sum ...: " + Arrays.stream(sorted).sum());
+//        System.out.println("Average: " + Arrays.stream(sorted).average().getAsDouble());
+//        System.out.println("Summary: " + Arrays.stream(sorted).summaryStatistics());
     }
 }
