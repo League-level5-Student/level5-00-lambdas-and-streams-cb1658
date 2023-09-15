@@ -43,7 +43,7 @@ public class Minesweeper extends PApplet {
      */
     int cellWidth = 40;             // in pixels
     int headerHeight = cellWidth;   // height of game info header
-    int numOfMines = 3;            // total number of mines in the game
+    int numOfMines = 15;            // total number of mines in the game
     int minesFlagged = 0;           // number of mines flagged
     int cellColor = 0xBFC0BB;       // color of unrevealed cell
     
@@ -76,7 +76,7 @@ public class Minesweeper extends PApplet {
      *  noneMatch() // returns true if no items in the stream match the condition
      */
     boolean checkWin() {
-        return cells.stream().filter((cell) -> cell.revealed == false).noneMatch((cell) -> cell.mine == true);
+        return cells.stream().filter((cell) -> cell.revealed == true).noneMatch((cell) -> cell.mine == true);
     }
     
     /*
@@ -99,7 +99,8 @@ public class Minesweeper extends PApplet {
         if(cell.mine == false) {
         	cell.revealed = true;
         	if(cell.minesAround == 0) {
-        		getNeighbors(cell).stream().forEach((s) -> revealCell(s));
+        		getNeighbors(cell).stream().filter((x) -> !x.revealed)
+        		.forEach((s) -> revealCell(s)); 
         	}
         }
     }
@@ -116,7 +117,9 @@ public class Minesweeper extends PApplet {
      * 6. Use reduce() or sum() to count the number of 1s, i.e. mines
      */
     void setNumberOfSurroundingMines() {
-    	cells.stream().forEach((cell) -> cell.minesAround = getNeighbors(cell).stream().map((x) -> 1).reduce( 0, (acc, next) -> acc+ next));
+    	cells.stream()
+    	.forEach((cell) -> cell.minesAround = getNeighbors(cell).stream().map((x) -> x.mine ? 1 : 0)
+    	.reduce( 0, (acc, next) -> acc+ next));
     }
     
     @Override
@@ -169,7 +172,7 @@ public class Minesweeper extends PApplet {
         if (state.equalsIgnoreCase("won")) {
             Cell.mineImg = Cell.wonImg;
         }
-        
+        System.out.println("guess what!?");
         revealAllCells();
     }
 
