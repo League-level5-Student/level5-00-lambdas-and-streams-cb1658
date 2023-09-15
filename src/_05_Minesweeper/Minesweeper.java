@@ -43,7 +43,7 @@ public class Minesweeper extends PApplet {
      */
     int cellWidth = 40;             // in pixels
     int headerHeight = cellWidth;   // height of game info header
-    int numOfMines = 10;            // total number of mines in the game
+    int numOfMines = 3;            // total number of mines in the game
     int minesFlagged = 0;           // number of mines flagged
     int cellColor = 0xBFC0BB;       // color of unrevealed cell
     
@@ -116,10 +116,7 @@ public class Minesweeper extends PApplet {
      * 6. Use reduce() or sum() to count the number of 1s, i.e. mines
      */
     void setNumberOfSurroundingMines() {
-        cells.stream().forEach((cell) -> cell.minesAround =  getNeighbors(cell).stream().map);
-        
-        
-        //.map((cell.mine) -> 1);
+    	cells.stream().forEach((cell) -> cell.minesAround = getNeighbors(cell).stream().map((x) -> 1).reduce( 0, (acc, next) -> acc+ next));
     }
     
     @Override
